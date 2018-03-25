@@ -13,8 +13,6 @@
   ];
 
 
-
-
   const $container = document.querySelector('.container');
 
 
@@ -28,7 +26,8 @@
       newEl.setAttribute('id', 'card-' + i);
 
       const childSpan = document.createElement('span');
-      childSpan.classList.add('icon', 'fa');
+      // 'fa' for font-awesome, 'icon' for my customization
+      childSpan.classList.add('fa');
       newEl.appendChild(childSpan);
 
       containerChild.appendChild(newEl);
@@ -59,10 +58,9 @@
       first = tempArray.splice(Math.floor(Math.random() * tempArray.length), 1);
       second = tempArray.splice(Math.floor(Math.random() * tempArray.length), 1);
 
-      // Since first and second is selected randomly, icons can be in regular order
+      // Since 'first' and 'second' is selected randomly, no need to shuffle icons
       let randomIcon = cardStyles[cardStyleIndex];
 
-      console.log(randomIcon);
 
       first[0].firstElementChild.classList.add(randomIcon);
       second[0].firstElementChild.classList.add(randomIcon);
@@ -79,47 +77,87 @@
   const $cards = document.querySelectorAll('.card');
 
 
+
+  // Store found matches in this array
+  const validPairs = [];
+
+  // All the variables below are used in event below
   let
+    actionCompleted = true,
     firstSelectedCard,
     secondSelectedCard,
     clickCounter = 0;
 
   $container.addEventListener('click', (event) => {
+
+    // If the event has any active timeout don't perform action
+    if (!actionCompleted || event.target.className.match(/open__card/gi))
+      return;
+    // Works only if the card is clicked not the whole container
+    if (event.target.className.match(/card|open__card/gi)) {
+      console.log('is entered');
       // if clickCounter is an odd number then it means it requires another pick
-    if (event.target.className.match(/card/gi) && clickCounter % 2 === 0) {
-      firstSelectedCard = event.target;
-      clickCounter++;
-    }
-    else if (event.target.className.match(/card/gi) &&
-            event.target !== firstSelectedCard) {
+      if (clickCounter % 2 === 0 &&
+          !(event.target.className.match(/open__card/gi))) {
+        console.log(event.target.className);
+        // Game logic
+        firstSelectedCard = event.target;
+        clickCounter++;
 
-      secondSelectedCard = event.target;
-      clickCounter++;
-    }
+        // Visual effects
+        event.target.classList.add('open__card');
 
-    // If clickCounter is even number then it means picking is complete
-    if (clickCounter % 2 === 0) {
-      let matchFound = false;
-      for (let i = 0; i < randomGroups.length; i++) {
-        if (randomGroups[i].includes(firstSelectedCard) &&
+        // document.querySelector('.open__card > span').style.visibility = 'visible';
+      }
+      else if (event.target !== firstSelectedCard &&
+              !(event.target.className.match(/open__card/gi))) {
+        // Game logic
+        secondSelectedCard = event.target;
+        clickCounter++;
+        actionCompleted = false;
+
+        // Visual effects
+        event.target.classList.add('open__card');
+      }
+
+
+      // If clickCounter is even number then it means picking is complete
+      if (clickCounter % 2 === 0) {
+        let matchFound = false;
+        for (let i = 0; i < randomGroups.length; i++) {
+          if (randomGroups[i].includes(firstSelectedCard) &&
             randomGroups[i].includes(secondSelectedCard)) {
 
-          console.log('Match found');
-          matchFound = true;
+            if (!validPairs.includes(firstSelectedCard) &&
+              !validPairs.includes(secondSelectedCard)) {
 
+              validPairs.push(firstSelectedCard, secondSelectedCard);
+              console.log('Match found');
+              matchFound = true;
+              actionCompleted = true;
+            }
+          }
         }
-      }
-      if (!matchFound) {
-        console.log('No match found');
-      }
 
+        setTimeout(() => {
+          if (!matchFound &&
+            !validPairs.includes(firstSelectedCard) &&
+            !validPairs.includes(secondSelectedCard)) {
 
+            firstSelectedCard.classList.remove('open__card');
+            secondSelectedCard.classList.remove('open__card');
+
+            console.log('No match found');
+            actionCompleted = true;
+
+            // Empty variables to prevent behaviour bugs
+            firstSelectedCard = undefined;
+            secondSelectedCard = undefined;
+          }
+
+        }, 1000)
+      }
     }
-
+    console.log(randomGroups);
   });
-
-  console.log(randomGroups);
-
-
-
 })();
