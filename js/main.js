@@ -28,7 +28,6 @@
 
       const newEl = document.createElement('div');
       newEl.classList.add('card');
-      newEl.setAttribute('id', 'card-' + i);
 
       const childSpan = document.createElement('span');
       // 'fa' for font-awesome
@@ -95,7 +94,7 @@
 
   $container.addEventListener('click', (event) => {
     /**
-     * If theere is a current action don't accept new clicks
+     * If there is a current action don't accept new clicks
      * If the clicked target already has the class 'open__card' don't perform any action
      */
     if (!actionCompleted || event.target.className.match(/open__card/gi))
@@ -144,18 +143,25 @@
               !validPairs.includes(secondSelectedCard)) {
 
 
-              // Add successful styles
-              firstSelectedCard.classList.add('successful__match');
-              secondSelectedCard.classList.add('successful__match');
+              // Add successful match styles
+              setTimeout(() => {
+                firstSelectedCard.classList.add('successful__match');
+                secondSelectedCard.classList.add('successful__match');
+              }, 515);
 
               validPairs.push(firstSelectedCard, secondSelectedCard);
 
               if (validPairs.length === 16) {
-                alert('congratulationss!!!!');
+                // When game is over
+
               }
 
               matchFound = true;
-              actionCompleted = true;
+              // Wait for effect to end before completing the action
+              setTimeout(() => {
+                actionCompleted = true;
+              }, 1000);
+              break;
             }
           }
         }
@@ -194,7 +200,7 @@
           // Action is complete
           setTimeout(() => {
             actionCompleted = true;
-          }, 1330);
+          }, 1370);
         }
 
       }

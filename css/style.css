@@ -1,7 +1,7 @@
 /* MEDIA QUERIES */
 
 @media screen and (min-width: 700px) {
-  main, .control-section {
+  main, .controls__section {
     max-width: 700px;
     margin-right: auto;
     margin-left: auto;
@@ -19,9 +19,15 @@
   }
 
 
-  main > .container {
+  main, main > .container {
     height: 600px;
   }
+  main > div {
+    -webkit-box-shadow: 5px 10px 14px 5px rgba(0,0,0,0.75);
+    -moz-box-shadow: 5px 10px 14px 5px rgba(0,0,0,0.75);
+    box-shadow: 5px 10px 14px 5px rgba(0,0,0,0.75);
+  }
+
 }
 
 
@@ -47,6 +53,17 @@
   }
 }
 
+/* https://paulund.co.uk/create-pulse-effect-with-css3-animation */
+
+@keyframes grow-and-shrink {
+  0% { transform: scale(1); }
+  25% { transform: scale(1) }
+  70% { transform: scale(1.8) }
+  100% { transform: scale(1) }
+}
+
+/* STYLES */
+
 * {
   margin: 0;
   padding: 0;
@@ -59,29 +76,35 @@
 }
 
 
-html, body, main {
+html, body {
   height: 100%;
 }
 
 
-.control-section {
+.controls__section {
   width: 100vw;
-  height: 15%;
-  background-color: black;
+  height: 25vh;
+  /* https://www.w3schools.com/css/css3_gradients.asp */
+  background: linear-gradient(170deg, #0fe8cd 0%, #4fe8fb 51%, #6cc5f8 75%);
   text-align: center;
 }
 
 
-.button {
-  color: #ddd;
+.controls__common {
+  color: #1d51a5;
   font-size: 2em;
 }
+
+
+.button {
+}
+
 
 
 .container {
   width: 100%;
   height: 550px;
-  background: linear-gradient(lightcoral, lightblue);
+  background: linear-gradient(#0fb8ad, lightblue);
   padding-top: 15px;
   display: grid;
   grid-template-columns: auto auto auto auto;
@@ -93,6 +116,7 @@ html, body, main {
   width: 50px;
   height: 80px;
   border: 1px solid black;
+  border-radius: 10px;
   margin: 10px auto;
   text-align: center;
   transform: rotateY(180deg);
@@ -115,6 +139,7 @@ html, body, main {
 }
 
 
+
 .open__card {
   transform: rotateY(0deg);
 }
@@ -126,13 +151,16 @@ html, body, main {
 
 
 .successful__match {
+  transform: translate3d(0, 0, 1.5);
   background: linear-gradient(#9be27c, #ccc);
-  /* position: relative; */
+  animation-name: grow-and-shrink;
+  animation-duration: 500ms;
+  transform-origin: 65% 65%;
+  animation-timing-function: ease;
 }
 
 
 .failed__match {
-  /* transform: translate3d(0, 0, 0); */
   animation: shake 0.65s cubic-bezier(.36,.07,.19,.97) both;
   background: linear-gradient(#e83a04, #c66e53)
 }
