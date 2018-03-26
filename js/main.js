@@ -16,9 +16,14 @@
   const $container = document.querySelector('.container');
 
 
-
+  /**
+   * 1- Create a div
+   * 2- Create a child span for the icon to place
+   * 3- Append main div into the container
+   * 4- Call shuffleCards
+   */
   function createBoard() {
-    const containerChild = document.createElement('div');
+    const fragment = document.createDocumentFragment();
     for (let i = 0; i < 16; i++) {
 
       const newEl = document.createElement('div');
@@ -26,21 +31,25 @@
       newEl.setAttribute('id', 'card-' + i);
 
       const childSpan = document.createElement('span');
-      // 'fa' for font-awesome, 'icon' for my customization
-      childSpan.classList.add('fa');
+      // 'fa' for font-awesome
+      childSpan.classList.add('fa', 'icon');
       newEl.appendChild(childSpan);
 
-      containerChild.appendChild(newEl);
+      fragment.appendChild(newEl);
     }
 
-    $container.appendChild(containerChild);
+    $container.appendChild(fragment);
 
     // Pair cards randomly after they are created
     shuffleCards();
   }
 
 
-
+  /**
+   * 1- Copy the contents of node list
+   * 2- Then select and delete elements randomly from the cloned array
+   * 4- Store them in the randomGroups array
+   */
   const randomGroups = [];
 
   function shuffleCards() {
@@ -71,53 +80,54 @@
     }
   }
 
-
   createBoard();
-  // Select cards globally
-  const $cards = document.querySelectorAll('.card');
-
-
 
   // Store found matches in this array
   const validPairs = [];
 
-  // All the variables below are used in event below
+  // All the variables below are used in the event below
   let
     actionCompleted = true,
     firstSelectedCard,
     secondSelectedCard,
     clickCounter = 0;
 
-  $container.addEventListener('click', (event) => {
 
-    // If the event has any active timeout don't perform action
+  $container.addEventListener('click', (event) => {
+    /**
+     * If theere is a current action don't accept new clicks
+     * If the clicked target already has the class 'open__card' don't perform any action
+     */
     if (!actionCompleted || event.target.className.match(/open__card/gi))
       return;
     // Works only if the card is clicked not the whole container
-    if (event.target.className.match(/card|open__card/gi)) {
-      console.log('is entered');
+    if (event.target.className.match(/card/gi)) {
       // if clickCounter is an odd number then it means it requires another pick
       if (clickCounter % 2 === 0 &&
-          !(event.target.className.match(/open__card/gi))) {
-        console.log(event.target.className);
+        !(event.target.className.match(/open__card/gi))) {
         // Game logic
         firstSelectedCard = event.target;
         clickCounter++;
 
         // Visual effects
-        event.target.classList.add('open__card');
+        firstSelectedCard.classList.add('open__card');
+        setTimeout(() => {
+          firstSelectedCard.firstElementChild.style.visibility = 'visible';
+        }, 185)
 
-        // document.querySelector('.open__card > span').style.visibility = 'visible';
       }
       else if (event.target !== firstSelectedCard &&
-              !(event.target.className.match(/open__card/gi))) {
+        !event.target.className.match(/open__card/gi)) {
         // Game logic
         secondSelectedCard = event.target;
         clickCounter++;
         actionCompleted = false;
 
         // Visual effects
-        event.target.classList.add('open__card');
+        secondSelectedCard.classList.add('open__card');
+        setTimeout(() => {
+          secondSelectedCard.firstElementChild.style.visibility = 'visible';
+        }, 185);
       }
 
 
@@ -125,37 +135,68 @@
       if (clickCounter % 2 === 0) {
         let matchFound = false;
         for (let i = 0; i < randomGroups.length; i++) {
+          // If match is found
           if (randomGroups[i].includes(firstSelectedCard) &&
             randomGroups[i].includes(secondSelectedCard)) {
 
+            // Previously picked cards can't be picked again
             if (!validPairs.includes(firstSelectedCard) &&
               !validPairs.includes(secondSelectedCard)) {
 
+
+              // Add successful styles
+              firstSelectedCard.classList.add('successful__match');
+              secondSelectedCard.classList.add('successful__match');
+
               validPairs.push(firstSelectedCard, secondSelectedCard);
-              console.log('Match found');
+
+              if (validPairs.length === 16) {
+                alert('congratulationss!!!!');
+              }
+
               matchFound = true;
               actionCompleted = true;
             }
           }
         }
 
-        setTimeout(() => {
-          if (!matchFound &&
-            !validPairs.includes(firstSelectedCard) &&
-            !validPairs.includes(secondSelectedCard)) {
+        // If user fails to match the cards
+        if (!matchFound &&
+          !validPairs.includes(firstSelectedCard) &&
+          !validPairs.includes(secondSelectedCard)) {
 
+
+          // Shake effect is added
+          setTimeout(() => {
+            firstSelectedCard.classList.add('failed__match');
+            secondSelectedCard.classList.add('failed__match');
+
+          }, 510);
+
+
+          // Shake effect is gone
+          setTimeout(() => {
+            firstSelectedCard.classList.remove('failed__match');
+            secondSelectedCard.classList.remove('failed__match');
+          }, 1160);
+
+          // Icon disappears
+          setTimeout(() => {
+            firstSelectedCard.firstElementChild.style.visibility = 'hidden';
+            secondSelectedCard.firstElementChild.style.visibility = 'hidden';
+          }, 1350);
+          // Cards starts flipping
+          setTimeout(() => {
             firstSelectedCard.classList.remove('open__card');
             secondSelectedCard.classList.remove('open__card');
+          }, 1200);
 
-            console.log('No match found');
+          // Action is complete
+          setTimeout(() => {
             actionCompleted = true;
+          }, 1330);
+        }
 
-            // Empty variables to prevent behaviour bugs
-            firstSelectedCard = undefined;
-            secondSelectedCard = undefined;
-          }
-
-        }, 1000)
       }
     }
     console.log(randomGroups);
