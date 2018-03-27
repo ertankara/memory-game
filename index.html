@@ -13,10 +13,23 @@
 <body>
   <main>
 
-    <div class="controls__section shadow">
-      <span class="controls__common info">Moves</span>
-      <span class="controls__common button fa fa-repeat"></span>
-      <span class="controls__common">00:12</span>
+    <!-- <div class="popup__window">
+      <span class="congrats">Congratz!</span>
+      <br>
+      <span class="info">Total Moves:</span> <span id="total-moves"></span>
+      <br>
+      <span class="info">Time Spent:</span> <span id=""></span>
+    </div> -->
+
+    <div class="controls">
+      <span class="style__icon align__left blue__background" id="moves">00</span>
+      <span class="style__icon fa fa-repeat" id="repeat-game"></span>
+      <span class="style__icon align__right" id="time-spent">00:00</span>
+      <div class="style__icon">
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+        <span class="fa fa-star"></span>
+      </div>
     </div>
 
     <div class="container shadow">
@@ -25,6 +38,9 @@
 
   </main>
   <script src="js/main.js"></script>
+  <script src="js/live-results.js"></script>
+  <!-- <script src="js/popup-results.js"></script> -->
+  <!-- <script src="js/highest-score.js"></script> -->
 </body>
 
 </html>

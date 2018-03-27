@@ -22,13 +22,15 @@
   main, main > .container {
     height: 600px;
   }
-  main > div {
-    -webkit-box-shadow: 5px 10px 14px 5px rgba(0,0,0,0.75);
-    -moz-box-shadow: 5px 10px 14px 5px rgba(0,0,0,0.75);
-    box-shadow: 5px 10px 14px 5px rgba(0,0,0,0.75);
-  }
 
+
+  .shadow {
+    -webkit-box-shadow: 5px 10px 25px 5px rgba(0,0,0,0.75);
+    -moz-box-shadow: 5px 10px 25px 5px rgba(0,0,0,0.75);
+    box-shadow: 5px 10px 25px 5px rgba(0,0,0,0.75);
+  }
 }
+
 
 
 /* KEYFRAMES */
@@ -57,9 +59,11 @@
 
 @keyframes grow-and-shrink {
   0% { transform: scale(1); }
-  25% { transform: scale(1) }
-  70% { transform: scale(1.8) }
-  100% { transform: scale(1) }
+  25% { transform: scale(1); }
+  70% { transform: scale(1.8); }
+  80% {transform: scale(1.5);}
+  90% {transform: scale(1.2)}
+  100% { transform: scale(1); }
 }
 
 /* STYLES */
@@ -81,30 +85,68 @@ html, body {
 }
 
 
-.controls__section {
-  width: 100vw;
-  height: 25vh;
-  /* https://www.w3schools.com/css/css3_gradients.asp */
-  background: linear-gradient(170deg, #0fe8cd 0%, #4fe8fb 51%, #6cc5f8 75%);
+
+main {
   text-align: center;
 }
 
 
-.controls__common {
-  color: #1d51a5;
-  font-size: 2em;
+body {
+  background: radial-gradient(circle, #222, #8cade2, #28d9ed);
 }
 
 
-.button {
+.popup__window {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  padding-top: 100px;
+  left: 20%;
+  top: 15%;
+  width: 60%;
+  height: 60%;
+  border-radius: 15px;
+  padding: 20px;
+  background-color: rgba(150, 200, 255, 0.7);;
+  text-align: center;
 }
 
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+.style__icon {
+  font-size: 1.6em;
+  color: #312f60;
+  padding-right: 15px;
+  padding-left: 15px;
+  width: 25%;
+}
+
+
+.blue__background {
+  background-color: #0f54c4;
+  color: white;
+}
+
+
+.align__right {
+  float: right;
+}
+
+
+.align__left {
+  float: left;
+}
 
 
 .container {
   width: 100%;
-  height: 550px;
-  background: linear-gradient(#0fb8ad, lightblue);
+  height: 100vh;
+  background: radial-gradient(circle, #0f54c4, #2995d8, #28d9ed);
   padding-top: 15px;
   display: grid;
   grid-template-columns: auto auto auto auto;
@@ -112,10 +154,10 @@ html, body {
 
 
 .card {
-  background: linear-gradient(#1d51a5, #8cade2);
+  background: linear-gradient(#317be2, #43e0ce);
   width: 50px;
   height: 80px;
-  border: 1px solid black;
+  border: 1px solid #222;
   border-radius: 10px;
   margin: 10px auto;
   text-align: center;
@@ -128,7 +170,7 @@ html, body {
 
 
 .card:hover {
-  border: 2px solid lightblue;
+  border: 1px solid #666;
 }
 
 
@@ -152,7 +194,7 @@ html, body {
 
 .successful__match {
   transform: translate3d(0, 0, 1.5);
-  background: linear-gradient(#9be27c, #ccc);
+  background: linear-gradient(#57e0a0, #54d6dd);
   animation-name: grow-and-shrink;
   animation-duration: 500ms;
   transform-origin: 65% 65%;
