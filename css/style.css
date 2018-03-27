@@ -1,6 +1,6 @@
 /* MEDIA QUERIES */
 
-@media screen and (min-width: 700px) {
+@media screen and (min-width: 600px) {
   main, .controls__section {
     max-width: 700px;
     margin-right: auto;
@@ -23,6 +23,10 @@
     height: 600px;
   }
 
+
+  .popup > .high__scores, .popup > .game__results {
+    width: 50%;
+  }
 
   .shadow {
     -webkit-box-shadow: 5px 10px 25px 5px rgba(0,0,0,0.75);
@@ -92,23 +96,34 @@ main {
 
 
 body {
-  background: radial-gradient(circle, #222, #8cade2, #28d9ed);
+  background: radial-gradient(circle, #2f7ca3, #8cade2, #28d9ed);
 }
 
 
-.popup__window {
-  display: none;
+.popup {
+  background: linear-gradient(#161fcc, #0f164c);
+  width: 75%;
+  height: 450px;
   position: fixed;
-  z-index: 10;
-  padding-top: 100px;
-  left: 20%;
-  top: 15%;
-  width: 60%;
-  height: 60%;
-  border-radius: 15px;
-  padding: 20px;
-  background-color: rgba(150, 200, 255, 0.7);;
-  text-align: center;
+  left: 50%;
+  z-index: 1;
+  margin-left: -37.5%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+
+.game__results {
+  order: 0;
+  width: 100%;
+  border: 1px solid yellow;
+}
+
+
+.high__scores {
+  order: 1;
+  width: 100%;
+  border: 1px solid red;
 }
 
 
@@ -124,6 +139,11 @@ body {
   padding-right: 15px;
   padding-left: 15px;
   width: 25%;
+}
+
+
+.star__color {
+  color: #e2e046;
 }
 
 
@@ -154,7 +174,7 @@ body {
 
 
 .card {
-  background: linear-gradient(#317be2, #43e0ce);
+  background: linear-gradient(#317be2, #38bde2);
   width: 50px;
   height: 80px;
   border: 1px solid #222;

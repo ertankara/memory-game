@@ -156,10 +156,12 @@ function cardSelectHandler(event) {
 
             validPairs.push(firstSelectedCard, secondSelectedCard);
 
-            if (validPairs.length === 16) {
+            // After game resets there will be newly added valid pairs
+            // The condition applies when it's multiples of 16
+            if (validPairs.length % 16 === 0) {
               // When game is over
               // The function below is in the 'popup-result.js' file
-              displayMoves(clickCounter);
+              displayMoves();
 
               // When the game ends stop timer
               updateTimer(false);
@@ -169,7 +171,8 @@ function cardSelectHandler(event) {
             // Wait for effect to end before completing the action
             setTimeout(() => {
               actionCompleted = true;
-              displayMoves(clickCounter);
+              displayMoves();
+              updateStarColor();
             }, 1000);
             break;
           }
@@ -210,10 +213,13 @@ function cardSelectHandler(event) {
         // Action is complete
         setTimeout(() => {
           actionCompleted = true;
-          displayMoves(clickCounter);
+          displayMoves();
+          updateStarColor();
         }, 1370);
       }
 
     }
   }
+  console.log(randomGroups);
+  console.log(validPairs);
 };

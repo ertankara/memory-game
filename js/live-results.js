@@ -3,12 +3,17 @@ const $totalMoves = document.querySelector('#moves');
 const $timeSpent = document.querySelector('#time-spent');
 
 
+// Stars for user memory performance
+const $firstStar = document.querySelector('#first-star');
+const $secondStar = document.querySelector('#second-star');
+const $thirdStar = document.querySelector('#third-star');
+
 $container.addEventListener('click', cardSelectHandler);
 
 
 $repeatButton.addEventListener('click', () => {
   // remove current contents
-  while($container.firstElementChild) {
+  while ($container.firstElementChild) {
     $container.firstElementChild.remove();
   }
   // Add new content again
@@ -20,8 +25,8 @@ $repeatButton.addEventListener('click', () => {
 
 
 // Will be called inside 'main.js'
-function displayMoves(totalClick) {
-  let movesMade = totalClick / 2;
+function displayMoves() {
+  let movesMade = clickCounter / 2;
   if (movesMade < 10) {
     movesMade = '0' + movesMade;
   }
@@ -32,8 +37,8 @@ function displayMoves(totalClick) {
 
 let interval;
 function updateTimer(timerState) {
-  if (!timerState ) {
-    clearInterval(interval);
+  if (!timerState) {
+      clearInterval(interval);
     return;
   }
 
@@ -59,4 +64,25 @@ function resetLabels() {
   $timeSpent.textContent = '00:00';
   $totalMoves.textContent = '00';
   clickCounter = 0;
+
+  $firstStar.classList.add('star__color');
+  $secondStar.classList.add('star__color');
+  $thirdStar.classList.add('star__color');
+}
+
+
+
+function updateStarColor() {
+  let movesMade = clickCounter / 2;
+  if (movesMade > 12) {
+    $thirdStar.classList.remove('star__color');
+  }
+
+  if (movesMade > 16) {
+    $secondStar.classList.remove('star__color');
+  }
+
+  if (movesMade > 22) {
+    $firstStar.classList.remove('star__color');
+  }
 }
