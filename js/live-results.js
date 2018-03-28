@@ -10,8 +10,9 @@ const $thirdStar = document.querySelector('#third-star');
 
 $container.addEventListener('click', cardSelectHandler);
 
+let timeSpent = 0;
 
-$repeatButton.addEventListener('click', () => {
+function resetGame() {
   // remove current contents
   while ($container.firstElementChild) {
     $container.firstElementChild.remove();
@@ -20,17 +21,16 @@ $repeatButton.addEventListener('click', () => {
   createBoard();
   resetLabels();
   updateTimer(false);
-});
+}
+
+$repeatButton.addEventListener('click', resetGame);
 
 
 
 // Will be called inside 'main.js'
 function displayMoves() {
   let movesMade = clickCounter / 2;
-  if (movesMade < 10) {
-    movesMade = '0' + movesMade;
-  }
-  $totalMoves.textContent = movesMade;
+  $totalMoves.textContent = String(movesMade).padStart(2, '0');
 }
 
 
@@ -45,6 +45,7 @@ function updateTimer(timerState) {
   let seconds = 0, minutes = 0;
   interval = setInterval(() => {
     seconds++;
+    timeSpent++;
 
     if (seconds > 59) {
       minutes++;
@@ -68,6 +69,10 @@ function resetLabels() {
   $firstStar.classList.add('star__color');
   $secondStar.classList.add('star__color');
   $thirdStar.classList.add('star__color');
+
+  timeSpent = 0, totalStars = 0;
+
+  document.querySelector('.modal').classList.remove('display__modal');
 }
 
 

@@ -100,12 +100,13 @@ function cardSelectHandler(event) {
   if (!actionCompleted || event.target.className.match(/open__card/gi))
     return;
 
-  // Once the very first valid click occurs start timer
-  if (clickCounter === 0) {
-    updateTimer(true);
-  }
+
   // Works only if the card is clicked not the whole container
   if (event.target.className.match(/card/gi)) {
+      // Once the very first valid click occurs start timer
+    if (clickCounter === 0) {
+      updateTimer(true);
+    }
     // if clickCounter is an odd number then it means it requires another pick
     if (clickCounter % 2 === 0 &&
       !(event.target.className.match(/open__card/gi))) {
@@ -165,6 +166,12 @@ function cardSelectHandler(event) {
 
               // When the game ends stop timer
               updateTimer(false);
+
+              // Display the model after game ends
+              document.querySelector('.modal')
+                .classList.add('display__modal');
+
+              displayModelResults();
             }
 
             matchFound = true;

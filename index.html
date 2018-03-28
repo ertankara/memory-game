@@ -11,13 +11,31 @@
 </head>
 
 <body>
-  <main>
 
-    <div class="popup">
-      <div class="game__results"></div>
-      <div class="high__scores"></div>
+  <!-- I leared how to make a modal and pretty much used his style
+      https://youtu.be/6ophW7Ask_0
+  -->
+  <div class="modal">
+    <div class="modal__content">
+      <span id="modal-close-button" class="close__button">&Cross;</span>
+      <p class="greet__message">
+        <span class="congrats">Congratulations!</span>
+        <br>
+        Total Moves: <span id="modal-total-moves"></span>
+        <br>
+        Time Spent: <span id="modal-time-spent"></span>
+        <br>
+        Stars:
+        <span id="modal-stars">
+          <span id="modal-first-star" class="fa fa-star modal__star__color"></span>
+          <span id="modal-second-star" class="fa fa-star modal__star__color"></span>
+          <span id="modal-third-star" class="fa fa-star modal__star__color"></span>
+        </span>
+      </p>
     </div>
+  </div>
 
+  <main>
     <div class="controls">
       <span class="style__icon align__left blue__background" id="moves">00</span>
       <span class="style__icon fa fa-repeat" id="repeat-game"></span>
@@ -36,7 +54,7 @@
   </main>
   <script src="js/main.js"></script>
   <script src="js/live-results.js"></script>
-  <!-- <script src="js/popup-results.js"></script> -->
+  <script src="js/popup-results.js"></script>
   <script src="js/highest-score.js"></script>
 </body>
 
