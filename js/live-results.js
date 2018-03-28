@@ -38,7 +38,7 @@ function displayMoves() {
 let interval;
 function updateTimer(timerState) {
   if (!timerState) {
-      clearInterval(interval);
+    clearInterval(interval);
     return;
   }
 

@@ -10,7 +10,7 @@ const $modalThirdStar = document.querySelector('#modal-third-star');
 $modalCloseButton.addEventListener('click', resetGame);
 
 
-function displayModelResults() {
+function displayModalResults() {
   $modalTotalMoves.textContent = String(clickCounter / 2).padStart(2, '0');
 
   let seconds = timeSpent % 60;
@@ -20,16 +20,16 @@ function displayModelResults() {
     `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
 
-    if (clickCounter / 2 > 12) {
-      $modalThirdStar.classList.remove('modal__star__color');
+  if (clickCounter / 2 > 12) {
+    $modalThirdStar.classList.remove('modal__star__color');
 
-    }
+  }
 
-    if (clickCounter / 2 > 16) {
-      $modalSecondStar.classList.remove('modal__star__color');
-    }
+  if (clickCounter / 2 > 16) {
+    $modalSecondStar.classList.remove('modal__star__color');
+  }
 
-    if (clickCounter / 2 > 22) {
-      $modalFirstStar.classList.remove('modal__star__color');
-    }
+  if (clickCounter / 2 > 22) {
+    $modalFirstStar.classList.remove('modal__star__color');
+  }
 }

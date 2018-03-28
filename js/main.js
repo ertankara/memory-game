@@ -103,7 +103,7 @@ function cardSelectHandler(event) {
 
   // Works only if the card is clicked not the whole container
   if (event.target.className.match(/card/gi)) {
-      // Once the very first valid click occurs start timer
+    // Once the very first valid click occurs start timer
     if (clickCounter === 0) {
       updateTimer(true);
     }
@@ -167,11 +167,14 @@ function cardSelectHandler(event) {
               // When the game ends stop timer
               updateTimer(false);
 
-              // Display the model after game ends
-              document.querySelector('.modal')
-                .classList.add('display__modal');
 
-              displayModelResults();
+              // Display model after some delay
+              setTimeout(() => {
+                document.querySelector('.modal')
+                  .classList.add('display__modal');
+
+                displayModalResults();
+              }, 1000)
             }
 
             matchFound = true;
