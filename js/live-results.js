@@ -18,9 +18,11 @@ function resetGame() {
     $container.firstElementChild.remove();
   }
   // Add new content again
+  randomGroups.length = 0;
   createBoard();
   resetLabels();
   updateTimer(false);
+  validPairs.length = 0;
 }
 
 $repeatButton.addEventListener('click', resetGame);
@@ -73,6 +75,15 @@ function resetLabels() {
   timeSpent = 0, totalStars = 0;
 
   document.querySelector('.modal').classList.remove('display__modal');
+
+  document.querySelector('#modal-first-star').
+    classList.remove('modal__star_color');
+
+  document.querySelector('#modal-second-star').
+    classList.remove('modal__star_color');
+
+  document.querySelector('#modal-third-star').
+    classList.remove('modal__star_color');
 }
 
 

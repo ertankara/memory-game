@@ -159,7 +159,7 @@ function cardSelectHandler(event) {
 
             // After game resets there will be newly added valid pairs
             // The condition applies when it's multiples of 16
-            if (validPairs.length % 16 === 0) {
+            if (validPairs.length === 16) {
               // When game is over
               // The function below is in the 'popup-result.js' file
               displayMoves();
@@ -174,6 +174,8 @@ function cardSelectHandler(event) {
                   .classList.add('display__modal');
 
                 displayModalResults();
+                validPairs.length = 0;
+                randomGroups.length = 0;
               }, 1000)
             }
 
