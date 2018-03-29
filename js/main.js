@@ -232,6 +232,4 @@ function cardSelectHandler(event) {
 
     }
   }
-  console.log(randomGroups);
-  console.log(validPairs);
 };

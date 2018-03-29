@@ -77,13 +77,13 @@ function resetLabels() {
   document.querySelector('.modal').classList.remove('display__modal');
 
   document.querySelector('#modal-first-star').
-    classList.remove('modal__star_color');
-
+    classList.add('modal__star__color');
+    const $modalFirstStar =
   document.querySelector('#modal-second-star').
-    classList.remove('modal__star_color');
+    classList.add('modal__star__color');
 
   document.querySelector('#modal-third-star').
-    classList.remove('modal__star_color');
+    classList.add('modal__star__color');
 }
 
 
